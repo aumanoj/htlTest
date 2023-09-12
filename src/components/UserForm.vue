@@ -57,10 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import debounce from '../services/commMethod'
 import { doc, setDoc } from 'firebase/firestore'
 
+/*  Firebase setup */
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 const firebaseConfig = {
@@ -72,11 +73,18 @@ const firebaseConfig = {
   appId: '1:266825543061:web:c3ef5874596973058bda9c',
   measurementId: 'G-K10MXVP7M1'
 }
-
 const firebaseApp = initializeApp(firebaseConfig)
 const db = getFirestore(firebaseApp)
 
-const formData = ref({
+/* interface formData */
+interface FormData {
+  field1: string,
+  field2: string,
+  field3: string,
+  field4: string,
+  field5: string
+}
+const formData: FormData = reactive({
   field1: '',
   field2: '',
   field3: '',
@@ -89,7 +97,7 @@ const saveFormData = debounce(async () => {
   const formDocRef = doc(db, 'form1', 'form')
 
   try {
-    await setDoc(formDocRef, formData.value)
+    await setDoc(formDocRef, formData)
     console.log('Form data saved to Firestore')
   } catch (error) {
     console.error('Error saving form data:', error)
@@ -102,7 +110,7 @@ const handleInputChange = () => {
 
 /* progress rate */
 const completionPercentage = computed(() => {
-  const filledFields = Object.values(formData.value).filter((value) => value.trim() !== '')
+  const filledFields = Object.values(formData).filter((value) => value.trim() !== '')
   return (filledFields.length / 5) * 100
 })
 </script>

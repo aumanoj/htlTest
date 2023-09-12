@@ -50,3 +50,29 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+### For the UI used tailwind css
+
+### Approach:
+### Setup firebase -
+1. Created firebase project
+2. Enable firebase store
+3. SDK configrations
+
+### Create firebase store collections
+Collection name and ID name and respective fields
+
+### Setup Vue 3 composition API with typescript(.ts)
+Created UserForm.vue and also created five fields, percentage progress and debounce method
+in commMethod.ts for handle auto save then imported in component. Initialize the firebase.
+
+### Flow:
+1. User interacts with the form by entering data in the input fields.
+2. Each input change triggers the @input event handler, which in turn calls the save data funtion with help of debounce function.
+3. The debounce function waits for a specified delay to ensure the user has finished typing or making changes. I'm using 1 second delay it may change according users needs.
+
+4. After debounce save the data in firestore using Firestore's setDoc method. complete percentage also work accoringly.
+
+That's all steps followed by me to achive the target.
+
+Thank You!
